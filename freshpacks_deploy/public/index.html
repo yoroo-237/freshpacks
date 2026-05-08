@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fresh Packs — Official Store</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --black:#0a0a0a;--white:#f9f7f4;--cream:#f0ece3;
+  --accent:#e8ff47;--accent2:#d4eb3a;
+  --gray:#888;--border:#e0dbd0;--card:#fff;
+  --tg:#229ED9;--red:#ff3b3b;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--black);overflow-x:hidden}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 5%;height:64px;
+  background:rgba(10,10,10,.96);backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(255,255,255,.07);
+}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-logo img{height:36px;width:auto;object-fit:contain;filter:brightness(0) invert(1)}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-size:.78rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.6);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--accent)}
+.nav-tg{display:flex;align-items:center;gap:7px;background:var(--tg);color:#fff;font-size:.78rem;font-weight:600;padding:8px 18px;border-radius:6px;text-decoration:none;transition:opacity .2s;white-space:nowrap;letter-spacing:.02em}
+.nav-tg:hover{opacity:.85}
+.nav-tg svg{width:15px;height:15px;fill:#fff;flex-shrink:0}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.hamburger span{display:block;width:22px;height:2px;background:#fff;border-radius:2px}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  text-align:center;padding:110px 5% 80px;
+  background:#0a0a0a;position:relative;overflow:hidden;
+}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 70% at 50% 40%,rgba(232,255,71,.07) 0%,transparent 65%)}
+.hero-inner{position:relative;max-width:760px}
+.hero-logo{margin:0 auto 2rem;width:160px;filter:brightness(0) invert(1)}
+.hero-tag{display:inline-block;font-size:.68rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);background:rgba(232,255,71,.08);border:1px solid rgba(232,255,71,.25);padding:5px 14px;border-radius:20px;margin-bottom:1.4rem}
+.hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(4rem,12vw,9rem);color:#fff;line-height:.95;margin-bottom:1.2rem;letter-spacing:.02em}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero p{font-size:1rem;color:rgba(255,255,255,.5);line-height:1.75;margin-bottom:2.5rem;font-weight:300;max-width:480px;margin-left:auto;margin-right:auto}
+.hero-ctas{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.btn-accent{background:var(--accent);color:var(--black);font-size:.85rem;font-weight:700;padding:14px 32px;border-radius:6px;text-decoration:none;letter-spacing:.04em;text-transform:uppercase;transition:background .2s,transform .15s}
+.btn-accent:hover{background:var(--accent2);transform:translateY(-2px)}
+.btn-ghost{background:transparent;color:#fff;font-size:.82rem;font-weight:500;padding:13px 26px;border-radius:6px;border:1px solid rgba(255,255,255,.2);text-decoration:none;display:flex;align-items:center;gap:8px;transition:border-color .2s,transform .15s}
+.btn-ghost:hover{border-color:rgba(255,255,255,.55);transform:translateY(-2px)}
+.btn-ghost svg{width:16px;height:16px;fill:currentColor;flex-shrink:0}
+
+/* ── SECTIONS ── */
+section{padding:80px 5%}
+.s-label{font-size:.65rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:.4rem}
+.s-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.2rem,5vw,3.8rem);color:var(--black);line-height:1;margin-bottom:.6rem;letter-spacing:.02em}
+.s-sub{font-size:.9rem;color:var(--gray);line-height:1.65;font-weight:300;max-width:480px}
+.s-head{margin-bottom:3rem}
+
+/* ── GRID ── */
+#drops{background:var(--cream)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:1.6rem}
+
+/* ── PRODUCT CARD ── */
+.pcard{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:transform .22s,box-shadow .22s}
+.pcard:hover{transform:translateY(-6px);box-shadow:0 18px 48px rgba(0,0,0,.12)}
+
+/* CAROUSEL */
+.carousel{position:relative;width:100%;aspect-ratio:1/1;background:#f0ece3;overflow:hidden}
+.carousel-track{display:flex;height:100%;transition:transform .35s cubic-bezier(.4,0,.2,1)}
+.carousel-slide{min-width:100%;height:100%;flex-shrink:0}
+.carousel-slide img{width:100%;height:100%;object-fit:cover;display:block}
+.carousel-slide.empty{display:flex;align-items:center;justify-content:center;font-size:4rem;background:#ede9e0}
+.carousel-btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.45);color:#fff;border:none;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:background .2s;z-index:2}
+.carousel-btn:hover{background:rgba(0,0,0,.75)}
+.carousel-btn.prev{left:10px}
+.carousel-btn.next{right:10px}
+.carousel-btn.hidden{display:none}
+.carousel-dots{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);display:flex;gap:5px;z-index:2}
+.cdot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.5);transition:background .2s,transform .2s;cursor:pointer}
+.cdot.on{background:#fff;transform:scale(1.3)}
+.carousel-count{position:absolute;top:10px;right:10px;background:rgba(0,0,0,.5);color:#fff;font-size:.65rem;font-weight:600;padding:3px 8px;border-radius:20px;z-index:2}
+
+/* BADGE */
+.pbadge{position:absolute;top:11px;left:11px;font-size:.62rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:3px 9px;border-radius:20px;z-index:3}
+.pbadge-new{background:var(--accent);color:var(--black)}
+.pbadge-hot{background:var(--red);color:#fff}
+.pbadge-sold{background:#444;color:#fff}
+
+/* CARD BODY */
+.pcard-body{padding:1.1rem 1.3rem 1.4rem}
+.pcat{font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:4px;/* accent for cat */filter:hue-rotate(0deg)}
+.pcat{color:#888}
+.pname{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.03em;line-height:1.1;margin-bottom:6px;color:var(--black)}
+.pdesc{font-size:.8rem;color:var(--gray);line-height:1.55;margin-bottom:14px;font-weight:300}
+.pfoot{display:flex;align-items:center;justify-content:space-between;gap:.5rem}
+.pprice{font-size:1.2rem;font-weight:700;color:var(--black)}
+.pprice small{font-size:.72rem;font-weight:400;color:var(--gray)}
+.btn-order{background:var(--black);color:#fff;font-size:.75rem;font-weight:600;padding:10px 18px;border-radius:7px;text-decoration:none;transition:background .2s,transform .15s;letter-spacing:.03em;text-transform:uppercase;white-space:nowrap}
+.btn-order:hover{background:#222;transform:translateY(-1px)}
+.btn-order.off{background:#ccc;cursor:not-allowed;pointer-events:none;color:#888}
+
+/* SKELETON */
+.skel{background:var(--border);border-radius:16px;height:400px;animation:shimmer 1.5s infinite;background:linear-gradient(90deg,#e8e3d8 25%,#f0ece3 50%,#e8e3d8 75%);background-size:200% 100%}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+/* ── HOW ── */
+#how{background:#fff}
+.how-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2.5rem}
+.how-step{}
+.how-num{font-family:'Bebas Neue',sans-serif;font-size:3rem;color:var(--accent);line-height:1;margin-bottom:.6rem}
+.how-step h3{font-size:1rem;font-weight:600;margin-bottom:.4rem}
+.how-step p{font-size:.83rem;color:var(--gray);line-height:1.6;font-weight:300}
+
+/* ── CTA ── */
+#cta{background:var(--black);text-align:center;padding:110px 5%}
+.cta-logo{width:120px;margin:0 auto 1.5rem;filter:brightness(0) invert(1)}
+#cta .s-label{color:rgba(232,255,71,.6)}
+#cta .s-title{color:#fff;margin-bottom:.8rem}
+#cta .s-sub{color:rgba(255,255,255,.4);margin:0 auto 2.5rem}
+.tg-btn{display:inline-flex;align-items:center;gap:10px;background:var(--tg);color:#fff;font-size:1rem;font-weight:600;padding:17px 38px;border-radius:9px;text-decoration:none;transition:opacity .2s,transform .15s;letter-spacing:.02em}
+.tg-btn:hover{opacity:.88;transform:translateY(-2px)}
+.tg-btn svg{width:22px;height:22px;fill:#fff}
+.tg-hint{font-size:.78rem;color:rgba(255,255,255,.28);margin-top:.9rem;display:block}
+
+footer{background:#050505;text-align:center;padding:28px 5%;font-size:.74rem;color:rgba(255,255,255,.22)}
+footer a{color:var(--accent);text-decoration:none}
+
+/* ── MOBILE ── */
+@media(max-width:640px){
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .nav-links.open{display:flex;flex-direction:column;position:fixed;top:64px;left:0;right:0;background:rgba(10,10,10,.98);padding:1.5rem 5%;border-bottom:1px solid rgba(255,255,255,.07);gap:1.3rem;z-index:99}
+  .nav-links.open a{color:rgba(255,255,255,.7)}
+  .hero-ctas{flex-direction:column;align-items:center}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 60'%3E%3Ctext y='45' font-size='48' font-family='Arial Black' font-weight='900' fill='white'%3EFRSH%3C/text%3E%3C/svg%3E" alt="Fresh Packs" id="navLogoImg">
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#drops">Drops</a></li>
+    <li><a href="#how">How it works</a></li>
+    <li><a href="#cta">Contact</a></li>
+  </ul>
+  <a href="https://t.me/freshpacksdm" target="_blank" class="nav-tg">
+    <svg viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.833.941z"/></svg>
+    Order Now
+  </a>
+  <button class="hamburger" id="ham"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <img src="" alt="Fresh Packs" class="hero-logo" id="heroLogo" style="display:none">
+    <div class="hero-tag">New Collection Drop</div>
+    <h1>FRESH<br><em>PACKS</em></h1>
+    <p>Exclusive clothing drops. Browse the collection and message us on Telegram to cop your fit — fast, direct, no middleman.</p>
+    <div class="hero-ctas">
+      <a href="#drops" class="btn-accent">Shop the Drop</a>
+      <a href="https://t.me/freshpacksdm" target="_blank" class="btn-ghost">
+        <svg viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.833.941z"/></svg>
+        @freshpacksdm
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- DROPS -->
+<section id="drops">
+  <div class="s-head">
+    <p class="s-label">Latest releases</p>
+    <h2 class="s-title">THE DROPS</h2>
+    <p class="s-sub">Tap any item to order directly via Telegram. New pieces added regularly.</p>
+  </div>
+  <div class="grid" id="menuGrid">
+    <div class="skel"></div><div class="skel"></div><div class="skel"></div>
+  </div>
+</section>
+
+<!-- HOW -->
+<section id="how">
+  <div class="s-head">
+    <p class="s-label">Simple process</p>
+    <h2 class="s-title">HOW TO ORDER</h2>
+    <p class="s-sub">Three steps and the fit is yours.</p>
+  </div>
+  <div class="how-grid">
+    <div class="how-step"><div class="how-num">01</div><h3>Browse the drops</h3><p>Scroll through all available pieces. Swipe photos to see every angle.</p></div>
+    <div class="how-step"><div class="how-num">02</div><h3>Message on Telegram</h3><p>Tap "Order Now" on any item or hit us at <strong>@freshpacksdm</strong> directly.</p></div>
+    <div class="how-step"><div class="how-num">03</div><h3>Confirm & receive</h3><p>We confirm your size and colour, handle payment, ship to you fast.</p></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <img src="" alt="Fresh Packs" class="cta-logo" id="ctaLogo" style="display:none">
+  <p class="s-label">Don't sleep on it</p>
+  <h2 class="s-title">COP YOUR FIT</h2>
+  <p class="s-sub">DM us on Telegram to place your order or ask anything. We reply fast.</p>
+  <a href="https://t.me/freshpacksdm" target="_blank" class="tg-btn">
+    <svg viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.833.941z"/></svg>
+    @freshpacksdm on Telegram
+  </a>
+  <span class="tg-hint">Fast replies · @freshpacksdm</span>
+</section>
+
+<footer>
+  <p>© 2026 Fresh Packs · All rights reserved · <a href="https://t.me/freshpacksdm">@freshpacksdm</a></p>
+</footer>
+
+<script>
+// Embed the logo as base64 so it works without a file server
+const LOGO_B64 = localStorage.getItem('fp_logo') || '';
+if (LOGO_B64) {
+  ['navLogoImg','heroLogo','ctaLogo'].forEach(id => {
+    const el = document.getElementById(id);
+    el.src = LOGO_B64; el.style.display = 'block';
+  });
+}
+
+// ── CAROUSEL BUILDER ──────────────────────────────────
+function buildCarousel(images, name, badge) {
+  const badgeHtml = badge ? `<span class="pbadge pbadge-${badge.toLowerCase()}">${badge}</span>` : '';
+  if (!images || images.length === 0) {
+    return `<div class="carousel"><div class="carousel-track"><div class="carousel-slide empty">👕</div></div>${badgeHtml}</div>`;
+  }
+  if (images.length === 1) {
+    return `<div class="carousel"><div class="carousel-track"><div class="carousel-slide"><img src="${images[0]}" alt="${name}" loading="lazy"></div></div>${badgeHtml}</div>`;
+  }
+  const slides = images.map(img => `<div class="carousel-slide"><img src="${img}" alt="${name}" loading="lazy"></div>`).join('');
+  const dots = images.map((_,i) => `<div class="cdot${i===0?' on':''}" onclick="goSlide(this,${i})"></div>`).join('');
+  return `<div class="carousel" data-idx="0">
+    <div class="carousel-track">${slides}</div>
+    ${badgeHtml}
+    <span class="carousel-count">1 / ${images.length}</span>
+    <button class="carousel-btn prev hidden" onclick="slideCarousel(this,-1)">‹</button>
+    <button class="carousel-btn next" onclick="slideCarousel(this,1)">›</button>
+    <div class="carousel-dots">${dots}</div>
+  </div>`;
+}
+
+function slideCarousel(btn, dir) {
+  const car = btn.closest('.carousel');
+  const track = car.querySelector('.carousel-track');
+  const slides = track.querySelectorAll('.carousel-slide');
+  let idx = parseInt(car.dataset.idx) + dir;
+  idx = Math.max(0, Math.min(idx, slides.length - 1));
+  car.dataset.idx = idx;
+  track.style.transform = `translateX(-${idx * 100}%)`;
+  car.querySelector('.carousel-count').textContent = `${idx+1} / ${slides.length}`;
+  car.querySelector('.prev').classList.toggle('hidden', idx === 0);
+  car.querySelector('.next').classList.toggle('hidden', idx === slides.length - 1);
+  car.querySelectorAll('.cdot').forEach((d,i) => d.classList.toggle('on', i===idx));
+}
+
+function goSlide(dot, idx) {
+  const car = dot.closest('.carousel');
+  const track = car.querySelector('.carousel-track');
+  const slides = track.querySelectorAll('.carousel-slide');
+  car.dataset.idx = idx;
+  track.style.transform = `translateX(-${idx * 100}%)`;
+  car.querySelector('.carousel-count').textContent = `${idx+1} / ${slides.length}`;
+  car.querySelector('.prev').classList.toggle('hidden', idx === 0);
+  car.querySelector('.next').classList.toggle('hidden', idx === slides.length - 1);
+  car.querySelectorAll('.cdot').forEach((d,i) => d.classList.toggle('on', i===idx));
+}
+
+// ── LOAD PRODUCTS ─────────────────────────────────────
+async function loadMenu() {
+  try {
+    const res = await fetch('/api/products');
+    const items = await res.json();
+    const grid = document.getElementById('menuGrid');
+    if (!items.length) {
+      grid.innerHTML = '<p style="color:var(--gray);grid-column:1/-1;padding:1rem 0">No drops yet — check back soon.</p>';
+      return;
+    }
+    grid.innerHTML = items.map(p => {
+      const carousel = buildCarousel(p.images, p.name, p.badge);
+      const price = p.price === 0 ? 'Custom' : `${p.price} <small>${p.currency}</small>`;
+      const btn = p.available
+        ? `<a href="https://t.me/freshpacksdm?text=${encodeURIComponent('Hi, I want to order: '+p.name)}" target="_blank" class="btn-order">Cop it →</a>`
+        : `<span class="btn-order off">Sold Out</span>`;
+      return `<div class="pcard">
+        ${carousel}
+        <div class="pcard-body">
+          <p class="pcat">${p.category}</p>
+          <h3 class="pname">${p.name}</h3>
+          <p class="pdesc">${p.desc}</p>
+          <div class="pfoot"><span class="pprice">${price}</span>${btn}</div>
+        </div>
+      </div>`;
+    }).join('');
+  } catch {
+    document.getElementById('menuGrid').innerHTML = '<p style="color:var(--gray);grid-column:1/-1">Could not load drops. Please refresh.</p>';
+  }
+}
+
+loadMenu();
+document.getElementById('ham').addEventListener('click', () => document.getElementById('navLinks').classList.toggle('open'));
+document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open')));
+</script>
+</body>
+</html>
